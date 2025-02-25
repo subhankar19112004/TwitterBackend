@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import { PORT } from './config/serverConfig.js';
 import  apiRouter  from './routes/apiRouter.js'
 import connectDB from './config/dbConfig.js';
+import cookieParser from 'cookie-parser';
 
 
 const app = express();
@@ -13,6 +14,7 @@ app.set('views', import.meta.dirname + '/views');
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(cookieParser());
 
 
 app.use('/api',  apiRouter );

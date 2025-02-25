@@ -4,10 +4,11 @@ import { validate } from '../../validators/zodValidator.js';
 import { tweetZodSchema } from '../../validators/tweetZodSchema.js';
 import { s3Uploader } from '../../config/multerConfig.js';
 import { getTweetsByIdManualValidator } from '../../validators/tweetManualValidator.js';
+import { authenticateToken } from '../../middlewares/authMiddleware.js';
 
 const router = express.Router();
 router.post('/', s3Uploader.single('tweetImage'), validate(tweetZodSchema) ,createTweet)
-router.get('/', getTweets );
+router.get('/', authenticateToken , getTweets );
 
 router.get('/:id',getTweetsByIdManualValidator ,getTweetsById);
 router.delete('/:id',getTweetsByIdManualValidator ,deleteTweet);
